@@ -51,7 +51,7 @@ public class JwtUtil {
                 // 设置签名的秘钥
                 .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
                 // 设置需要解析的jwt
-                .parseClaimsJws(token).getBody();
+                .parseClaimsJws(token).getBody();//调用 parseClaimsJws(jwt) 方法解析 JWT 时，如果 JWT 已经过期，parseClaimsJws 方法会抛出 ExpiredJwtException 异常
         return claims;
     }
 
