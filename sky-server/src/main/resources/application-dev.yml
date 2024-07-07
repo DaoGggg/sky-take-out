@@ -6,3 +6,8 @@ sky:
     database: sky_take_out
     username: root
     password: 123456
+#   阿里云OSS
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    bucketName: web-tilas-jxt
