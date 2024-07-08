@@ -51,4 +51,12 @@ public interface DishMapper {
      * @param ids
      */
     void deleteByIds(List<Long> ids);
+
+
+    /**
+     * 根据主键查询菜品用于数据回显
+     * @param id
+     * @return
+     */
+
 }
