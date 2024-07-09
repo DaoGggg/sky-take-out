@@ -52,11 +52,13 @@ public interface DishMapper {
      */
     void deleteByIds(List<Long> ids);
 
-
     /**
-     * 根据主键查询菜品用于数据回显
-     * @param id
-     * @return
+     * 更新菜品表信息
+     * @param dish
      */
+    @AutoFill(OperationType.UPDATE)
+    void update(Dish dish);
+
+
 
 }

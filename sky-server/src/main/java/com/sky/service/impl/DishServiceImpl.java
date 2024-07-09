@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -126,5 +128,30 @@ public class DishServiceImpl implements DishService {
         dishVO.setFlavors(dishFlavors);
 
         return dishVO;
+    }
+
+    /**
+     * 修改菜品信息
+     * @param dishDTO
+     */
+    @Override
+    public void updateWithFlavor(DishDTO dishDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        //修改菜品表基本信息
+        dishMapper.update(dish);
+        //先删除原有的口味数据
+        List<Long> list = new ArrayList<>();
+        list.add(dishDTO.getId());
+        dishFlavorMapper.deleteByDishids(list);
+        //重新插入新的口味数据
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if (flavors != null && flavors.size() > 0) {
+            flavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(dishDTO.getId());
+            });
+            dishFlavorMapper.inserBatch(flavors);
+        }
+
     }
 }
