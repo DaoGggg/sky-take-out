@@ -29,13 +29,13 @@ public class AutoFillAspect {
      * 切入点
      */
     @Pointcut("execution(* com.sky.mapper.*.*(..)) && @annotation(com.sky.annotation.AutoFill)")
-    public void aotuFillPointCut() {}
+    public void autoFillPointCut() {}
 
     /**
      * 前置通知 在通知中进行公共字段的赋值
      * @param joinPoint
      */
-    @Before("aotuFillPointCut()")
+    @Before("autoFillPointCut()")
     public void autoFill(JoinPoint joinPoint) {
         log.info("开始进行公共字段的自动填充...");
         //获取当前被拦截方法上的数据库操作类型

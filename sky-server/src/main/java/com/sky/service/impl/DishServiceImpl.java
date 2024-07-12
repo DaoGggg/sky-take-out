@@ -154,4 +154,32 @@ public class DishServiceImpl implements DishService {
         }
 
     }
+
+    /**
+     * 根据id 菜品起售、停售
+     * @param id
+     * @param status
+     */
+    @Override
+    public void startOrForbidden(Long id, Integer status) {
+        Dish dish = new Dish();
+        dish.setId(id);
+        dish.setStatus(status);
+
+        dishMapper.update(dish);
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+
+    @Override
+    public List<Dish> getByCategoryId(Integer categoryId) {
+
+        List<Dish> dishList = dishMapper.getByCategoryId(categoryId);
+
+        return dishList;
+    }
 }
