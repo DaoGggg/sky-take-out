@@ -89,4 +89,27 @@ public class shoppingCartServiceImpl implements ShoppingCartService {
         shoppingCartMapper.deleteByUserId(userId);
 
     }
+
+    /**
+     * 删除购物车中一个商品
+     * @param shoppingCartDTO
+     */
+    @Override
+    public void delete(ShoppingCartDTO shoppingCartDTO) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        ShoppingCart cart = list.get(0);
+        if(cart.getNumber() == 1){
+        //若菜品是单个的 则删除
+        shoppingCartMapper.delete(shoppingCart);
+        }else {
+            //菜品为有2个及以上 数量减一
+            cart.setNumber(cart.getNumber()-1);
+            shoppingCartMapper.updateNumberById(cart);
+        }
+
+    }
 }
